@@ -1,0 +1,25 @@
+# Don't publish these to npm
+node_modules/
+dist/
+*.log
+.env
+.DS_Store
+
+# Development/testing files
+HANDOVER.md
+TEST_CONFIG.md
+PROJECT_SUMMARY.md
+
+# Git files
+.git/
+.gitignore
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+Thumbs.db
