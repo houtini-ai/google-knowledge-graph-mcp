@@ -1,0 +1,8 @@
+chore: upgrade to latest dependencies and fix types
+
+- Upgrade @modelcontextprotocol/sdk to ^1.25.2 (latest)
+- Add missing @types/node@^25.0.9 for Node.js 18+ fetch API support
+- Add proper package exports and publishConfig
+- Add additional npm scripts (clean, type-check, prepack)
+- Update keywords for better discoverability
+- Ready for npm publication
