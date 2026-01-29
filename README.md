@@ -1,6 +1,7 @@
 # Google Knowledge Graph Search MCP
 
 [![npm version](https://img.shields.io/npm/v/@houtini/google-knowledge-graph-mcp.svg)](https://www.npmjs.com/package/@houtini/google-knowledge-graph-mcp)
+[![Known Vulnerabilities](https://snyk.io/test/github/houtini/google-knowledge-graph-search-mcp/badge.svg)](https://snyk.io/test/github/houtini/google-knowledge-graph-search-mcp)
 [![MCP Registry](https://img.shields.io/badge/MCP-Registry-blue?style=flat-square)](https://registry.modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue)](https://modelcontextprotocol.io)
