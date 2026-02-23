@@ -1,7 +1,7 @@
 # Google Knowledge Graph Search MCP
 
 [![npm version](https://img.shields.io/npm/v/@houtini/google-knowledge-graph-mcp.svg)](https://www.npmjs.com/package/@houtini/google-knowledge-graph-mcp)
-[![Known Vulnerabilities](https://snyk.io/test/github/houtini-ai/google-knowledge-graph-search-mcp/badge.svg)](https://snyk.io/test/github/houtini-ai/google-knowledge-graph-search-mcp)
+[![Known Vulnerabilities](https://snyk.io/test/github/houtini-ai/google-knowledge-graph-mcp/badge.svg)](https://snyk.io/test/github/houtini-ai/google-knowledge-graph-mcp)
 [![MCP Registry](https://img.shields.io/badge/MCP-Registry-blue?style=flat-square)](https://registry.modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue)](https://modelcontextprotocol.io)
@@ -60,8 +60,8 @@ Add this to your `claude_desktop_config.json`:
 If you prefer running from source:
 
 ```bash
-git clone https://github.com/houtini/google-knowledge-graph-search-mcp.git
-cd google-knowledge-graph-search-mcp
+git clone https://github.com/houtini/google-knowledge-graph-mcp.git
+cd google-knowledge-graph-mcp
 npm install
 npm run build
 ```
@@ -73,7 +73,7 @@ Then configure Claude Desktop:
   "mcpServers": {
     "google-knowledge-graph": {
       "command": "node",
-      "args": ["C:\\path\\to\\google-knowledge-graph-search-mcp\\dist\\index.js"],
+      "args": ["C:\\path\\to\\google-knowledge-graph-mcp\\dist\\index.js"],
       "env": {
         "GOOGLE_KNOWLEDGE_GRAPH_API_KEY": "your-api-key-here"
       }
