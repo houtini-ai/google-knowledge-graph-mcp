@@ -10,7 +10,7 @@ import { searchEntities, lookupEntities, SearchOptions } from './client.js';
 const server = new Server(
   {
     name: 'google-knowledge-graph-mcp',
-    version: '1.0.0',
+    version: '1.0.3',
   },
   {
     capabilities: {
