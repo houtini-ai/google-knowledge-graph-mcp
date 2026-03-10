@@ -8,6 +8,12 @@
 
 Model Context Protocol server that connects Claude (or any MCP client) to Google's free public Knowledge Graph API. Search for real-world entities - people, places, organisations, concepts - and get structured data back.
 
+<p align="center">
+  <a href="https://glama.ai/mcp/servers/@houtini-ai/google-knowledge-graph-mcp">
+    <img width="380" height="200" src="https://glama.ai/mcp/servers/@houtini-ai/google-knowledge-graph-mcp/badge" alt="Google Knowledge Graph MCP server" />
+  </a>
+</p>
+
 **What is this?** An MCP server. If you don't know what that means, you probably don't need this. If you're using Claude Desktop or another MCP-compatible client and want to search Google's knowledge database, this is for you.
 
 ## Why This Exists
