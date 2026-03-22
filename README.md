@@ -14,6 +14,10 @@ Model Context Protocol server that connects Claude (or any MCP client) to Google
   </a>
 </p>
 
+> **Quick Navigation**
+>
+> [Why this exists](#why-this-exists) | [What you get](#what-you-get) | [Installation](#installation) | [Getting your API key](#getting-your-api-key) | [Usage examples](#usage-examples) | [Parameters](#parameters) | [Entity types](#common-entity-types) | [Troubleshooting](#troubleshooting)
+
 **What is this?** An MCP server. If you don't know what that means, you probably don't need this. If you're using Claude Desktop or another MCP-compatible client and want to search Google's knowledge database, this is for you.
 
 ## Why This Exists
@@ -60,6 +64,25 @@ Add this to your `claude_desktop_config.json`:
   }
 }
 ```
+
+### Claude Code (CLI)
+
+Claude Code uses a different registration mechanism -- it doesn't read `claude_desktop_config.json`. Use `claude mcp add` instead:
+
+```bash
+claude mcp add \
+  -e GOOGLE_KNOWLEDGE_GRAPH_API_KEY=your-api-key-here \
+  -s user \
+  google-knowledge-graph -- npx -y @houtini/google-knowledge-graph-mcp
+```
+
+Verify with:
+
+```bash
+claude mcp get google-knowledge-graph
+```
+
+You should see `Status: Connected`.
 
 ### Local Install
 
