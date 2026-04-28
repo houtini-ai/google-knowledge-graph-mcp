@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/houtini-ai-google-knowledge-graph-mcp-badge.png)](https://mseep.ai/app/houtini-ai-google-knowledge-graph-mcp)
+
 # Google Knowledge Graph Search MCP
 
 [![npm version](https://img.shields.io/npm/v/@houtini/google-knowledge-graph-mcp.svg)](https://www.npmjs.com/package/@houtini/google-knowledge-graph-mcp)
