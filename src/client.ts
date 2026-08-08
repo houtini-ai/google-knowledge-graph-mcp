@@ -35,6 +35,94 @@ if (!API_KEY) {
   throw new Error('GOOGLE_KNOWLEDGE_GRAPH_API_KEY or GOOGLE_CLOUD_API_KEY environment variable is required');
 }
 
+// Say it at boot rather than waiting for the first search to fail. Warn, don't
+// throw: the shape check is a heuristic, and refusing to start on a key that
+// might be fine is worse than a line on stderr. (stderr, never stdout - stdout
+// carries the MCP JSON-RPC framing.)
+if (API_KEY.startsWith('AQ.')) {
+  console.error(
+    '[google-knowledge-graph] Warning: the API key starts with "AQ.", which is a\n' +
+    '  Google AI Studio (Gemini) key. This API needs a Google Cloud API key\n' +
+    '  ("AIza...", 39 chars) with the Knowledge Graph Search API enabled.\n' +
+    '  Searches will fail with "API key not valid" until that is corrected.'
+  );
+}
+
+/**
+ * Google AI Studio keys look nothing like Google Cloud keys, and the two are
+ * easy to mix up when both are sitting in the same MCP config: a Cloud key is
+ * `AIza...` and 39 characters, an AI Studio (Gemini) key is `AQ.` and longer.
+ * kgsearch only accepts the Cloud one, and answers a Gemini key with a bare
+ * "API key not valid" that says nothing about why.
+ */
+function looksLikeAiStudioKey(key: string): boolean {
+  return key.startsWith('AQ.');
+}
+
+/**
+ * Turn a failed response into something the reader can act on.
+ *
+ * The raw Google error is a wall of JSON whose most useful sentence is "API key
+ * not valid" - true, but it doesn't say the key is the *wrong kind*, which is
+ * the usual cause. Google's own text is still appended, so nothing is hidden.
+ */
+function explainApiError(status: number, statusText: string, body: string): string {
+  const raw = `Knowledge Graph API request failed: ${status} ${statusText} - ${body}`;
+  const isKeyProblem = status === 400 && /API_KEY_INVALID|API key not valid/i.test(body);
+
+  if (isKeyProblem && looksLikeAiStudioKey(API_KEY!)) {
+    return [
+      'Knowledge Graph rejected the API key, and it looks like the wrong kind of key.',
+      '',
+      'The key starts with "AQ.", which is a Google AI Studio (Gemini) key. This API',
+      'needs a Google Cloud API key - they start with "AIza" and are 39 characters.',
+      'A Gemini key will never work here, however many times it is re-pasted.',
+      '',
+      'To get the right one:',
+      '  1. https://console.cloud.google.com/ - pick or create a project',
+      '  2. Enable "Knowledge Graph Search API" for it',
+      '  3. Credentials -> Create credentials -> API key',
+      '  4. Put that value in GOOGLE_KNOWLEDGE_GRAPH_API_KEY',
+      '',
+      'It stays free: no billing account, no quota to unlock.',
+      '',
+      `Google's response: ${body}`,
+    ].join('\n');
+  }
+
+  if (isKeyProblem) {
+    return [
+      'Knowledge Graph rejected the API key.',
+      '',
+      'Check that it is a Google Cloud API key (starts with "AIza", 39 characters)',
+      'and that "Knowledge Graph Search API" is enabled for that key\'s project at',
+      'https://console.cloud.google.com/ - a valid key still fails if the API was',
+      'never switched on.',
+      '',
+      `Google's response: ${body}`,
+    ].join('\n');
+  }
+
+  if (status === 403) {
+    return [
+      'Knowledge Graph refused the request (403).',
+      '',
+      'The key is recognised but not allowed to call this API. Usually one of:',
+      '  - "Knowledge Graph Search API" is not enabled for the key\'s project',
+      '  - the key has an API restriction that excludes kgsearch.googleapis.com',
+      '  - the key has an HTTP-referrer or IP restriction that this machine fails',
+      '',
+      `Google's response: ${body}`,
+    ].join('\n');
+  }
+
+  if (status === 429) {
+    return `Knowledge Graph rate-limited the request (429). Back off and retry.\n\nGoogle's response: ${body}`;
+  }
+
+  return raw;
+}
+
 /**
  * Build URL for Knowledge Graph Search API
  * Docs: https://developers.google.com/knowledge-graph/reference/rest/v1/
@@ -99,9 +187,11 @@ export async function searchEntities(options: SearchOptions): Promise<KnowledgeG
     },
   });
 
+
+
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Knowledge Graph API request failed: ${response.status} ${response.statusText} - ${errorText}`);
+    throw new Error(explainApiError(response.status, response.statusText, errorText));
   }
 
   const data: any = await response.json();
