@@ -36,3 +36,6 @@ coverage/
 # Temporary files
 *.tmp
 *.temp
+
+# Local Claude session config
+.claude/

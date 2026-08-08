@@ -1,6 +1,6 @@
 {
   "name": "@houtini/google-knowledge-graph-mcp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "mcpName": "io.github.houtini-ai/google-knowledge-graph",
   "description": "MCP server for Google's free public Knowledge Graph Search API - search for structured entity information",
   "main": "dist/index.js",
@@ -27,6 +27,9 @@
   },
   "files": [
     "dist",
+    "assets/logo.png",
+    "assets/icon.png",
+    "server.json",
     "README.md",
     "LICENSE",
     ".env.example"

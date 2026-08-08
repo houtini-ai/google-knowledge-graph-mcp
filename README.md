@@ -1,7 +1,12 @@
+<div align="center">
+  <img src="https://raw.githubusercontent.com/houtini-ai/google-knowledge-graph-mcp/main/assets/logo.png" width="120" height="120" alt="Google Knowledge Graph MCP" />
+</div>
+
 # Google Knowledge Graph Search MCP
 
 [![npm version](https://img.shields.io/npm/v/@houtini/google-knowledge-graph-mcp.svg)](https://www.npmjs.com/package/@houtini/google-knowledge-graph-mcp)
 [![MCP Registry](https://img.shields.io/badge/MCP-Registry-blue?style=flat-square)](https://registry.modelcontextprotocol.io)
+[![Known Vulnerabilities](https://snyk.io/test/github/houtini-ai/google-knowledge-graph-mcp/badge.svg)](https://snyk.io/test/github/houtini-ai/google-knowledge-graph-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue)](https://modelcontextprotocol.io)
 
@@ -119,7 +124,7 @@ Then configure Claude Desktop:
 
 ## Getting Your API Key
 
-Google's Knowledge Graph Search API is free. Genuinely free - no billing account required.
+Google's Knowledge Graph Search API is free - no billing account, no card, no quota to unlock.
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Create a new project (or select an existing one)

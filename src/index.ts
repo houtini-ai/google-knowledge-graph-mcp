@@ -6,11 +6,12 @@ import {
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import { searchEntities, lookupEntities, SearchOptions } from './client.js';
+import { SERVER_VERSION } from './version.js';
 
 const server = new Server(
   {
     name: 'google-knowledge-graph-mcp',
-    version: '1.0.5',
+    version: SERVER_VERSION,
   },
   {
     capabilities: {
