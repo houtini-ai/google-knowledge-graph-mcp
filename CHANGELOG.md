@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8] - 2026-10-02
+
+### Fixed
+- Tool arguments are now validated against the advertised schema: an empty `ids` array, an out-of-range `limit` or a non-string `query` return a clear error instead of reaching Google as a malformed request
+- API requests now time out after 30 seconds with a clear error instead of hanging forever
+
+### Changed
+- Documentation truth pass: troubleshooting now describes the 400 "API key not valid" response (not 401), stale version footer removed, clone URLs corrected to the houtini-ai organisation, and this changelog backfilled for 1.0.1-1.0.7
+
+### Added
+- AGENTS.md with instructions for AI coding agents, and an `opencode.json` dev server config
+
 ## [1.0.7] - 2026-08-08
 
 ### Added
