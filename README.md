@@ -93,7 +93,7 @@ You should see `Status: Connected`.
 If you prefer running from source:
 
 ```bash
-git clone https://github.com/houtini/google-knowledge-graph-mcp.git
+git clone https://github.com/houtini-ai/google-knowledge-graph-mcp.git
 cd google-knowledge-graph-mcp
 npm install
 npm run build
@@ -231,8 +231,8 @@ You can combine types for more specific searches.
 - Remove entity type filters to broaden search
 - Check result limit isn't set too low
 
-**401 Unauthorized:**
-- API key is invalid or expired
+**400 "API key not valid":**
+- API key is invalid, expired, or the wrong kind (a Google AI Studio "AQ." key won't work - it must be a Google Cloud "AIza..." key)
 - Knowledge Graph Search API isn't enabled in your Google Cloud project
 
 ## Building From Source
@@ -290,5 +290,4 @@ Built by Richard Baxter ([Houtini](https://houtini.ai)) as part of a collection 
 
 ---
 
-**Version:** 1.0.0  
 **Status:** Production ready, tested with Claude Desktop

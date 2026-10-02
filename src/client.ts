@@ -180,14 +180,21 @@ export async function searchEntities(options: SearchOptions): Promise<KnowledgeG
 
   const url = buildSearchUrl(options);
 
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-    },
-  });
-
-
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+      signal: AbortSignal.timeout(30_000),
+    });
+  } catch (error) {
+    if (error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError')) {
+      throw new Error('Knowledge Graph API request timed out after 30 seconds. The API may be slow or unreachable - try again.');
+    }
+    throw error;
+  }
 
   if (!response.ok) {
     const errorText = await response.text();

@@ -5,8 +5,28 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
+import { z } from 'zod';
 import { searchEntities, lookupEntities, SearchOptions } from './client.js';
 import { SERVER_VERSION } from './version.js';
+
+const searchArgsSchema = z.object({
+  query: z.string().min(1),
+  languages: z.array(z.string()).optional(),
+  types: z.array(z.string()).optional(),
+  limit: z.number().int().min(1).max(500).optional(),
+});
+
+const lookupArgsSchema = z.object({
+  ids: z.array(z.string().min(1)).min(1),
+  languages: z.array(z.string()).optional(),
+});
+
+function invalidArgs(tool: string, error: z.ZodError): Error {
+  const details = error.issues
+    .map((issue) => `${issue.path.join('.') || '(root)'}: ${issue.message}`)
+    .join('; ');
+  return new Error(`Invalid arguments for ${tool}: ${details}`);
+}
 
 const server = new Server(
   {
@@ -83,7 +103,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const { name, arguments: args } = request.params;
 
     if (name === 'search_knowledge_graph') {
-      const { query, languages, types, limit } = args as any;
+      const parsed = searchArgsSchema.safeParse(args);
+      if (!parsed.success) {
+        throw invalidArgs(name, parsed.error);
+      }
+      const { query, languages, types, limit } = parsed.data;
 
       const options: SearchOptions = {
         query,
@@ -124,7 +148,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     }
 
     if (name === 'lookup_knowledge_graph_entities') {
-      const { ids, languages } = args as any;
+      const parsed = lookupArgsSchema.safeParse(args);
+      if (!parsed.success) {
+        throw invalidArgs(name, parsed.error);
+      }
+      const { ids, languages } = parsed.data;
 
       const entities = await lookupEntities(ids, languages || ['en']);
 

@@ -33,7 +33,7 @@ I'm happy to review PRs that:
 
 ```bash
 # Clone the repo
-git clone https://github.com/houtini/google-knowledge-graph-mcp.git
+git clone https://github.com/houtini-ai/google-knowledge-graph-mcp.git
 cd google-knowledge-graph-mcp
 
 # Install dependencies
