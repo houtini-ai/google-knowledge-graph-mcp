@@ -15,12 +15,13 @@
     "url": "https://github.com/houtini-ai/google-knowledge-graph-mcp",
     "source": "github"
   },
-      "version": "1.0.8",
+  "websiteUrl": "https://houtini.com",
+      "version": "1.0.9",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@houtini/google-knowledge-graph-mcp",
-  "version": "1.0.8",
+  "version": "1.0.9",
       "transport": {
         "type": "stdio"
       },
