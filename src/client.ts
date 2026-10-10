@@ -137,19 +137,23 @@ function buildSearchUrl(options: SearchOptions): string {
     params.append('query', options.query);
   }
 
+  // ids, languages and types are repeated parameters (?ids=A&ids=B), not
+  // comma-separated lists: a joined value is read as one malformed id and the
+  // API answers 400 "Request contains an invalid id".
+
   // IDs parameter (for entity lookup by MID)
-  if (options.ids && options.ids.length > 0) {
-    params.append('ids', options.ids.join(','));
+  for (const id of options.ids ?? []) {
+    params.append('ids', id);
   }
 
   // Languages parameter
-  if (options.languages && options.languages.length > 0) {
-    params.append('languages', options.languages.join(','));
+  for (const language of options.languages ?? []) {
+    params.append('languages', language);
   }
 
   // Types parameter (schema.org types)
-  if (options.types && options.types.length > 0) {
-    params.append('types', options.types.join(','));
+  for (const type of options.types ?? []) {
+    params.append('types', type);
   }
 
   // Limit parameter (default: 20, max: 500)
