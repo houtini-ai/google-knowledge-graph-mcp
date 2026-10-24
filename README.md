@@ -1,4 +1,6 @@
 <div align="center">
+
+[![Socket Badge](https://socket.dev/api/badge/npm/package/@houtini/google-knowledge-graph-mcp)](https://socket.dev/npm/package/@houtini/google-knowledge-graph-mcp)
   <img src="https://raw.githubusercontent.com/houtini-ai/google-knowledge-graph-mcp/main/assets/logo.png" width="120" height="120" alt="Google Knowledge Graph MCP" />
 </div>
 
