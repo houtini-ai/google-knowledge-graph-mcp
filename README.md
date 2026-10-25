@@ -1,6 +1,4 @@
 <div align="center">
-
-[![Socket Badge](https://socket.dev/api/badge/npm/package/@houtini/google-knowledge-graph-mcp)](https://socket.dev/npm/package/@houtini/google-knowledge-graph-mcp)
   <img src="https://raw.githubusercontent.com/houtini-ai/google-knowledge-graph-mcp/main/assets/logo.png" width="120" height="120" alt="Google Knowledge Graph MCP" />
 </div>
 
@@ -9,6 +7,7 @@
 [![npm version](https://img.shields.io/npm/v/@houtini/google-knowledge-graph-mcp.svg)](https://www.npmjs.com/package/@houtini/google-knowledge-graph-mcp)
 [![MCP Registry](https://img.shields.io/badge/MCP-Registry-blue?style=flat-square)](https://registry.modelcontextprotocol.io)
 [![Known Vulnerabilities](https://snyk.io/test/github/houtini-ai/google-knowledge-graph-mcp/badge.svg)](https://snyk.io/test/github/houtini-ai/google-knowledge-graph-mcp)
+[![Socket Badge](https://socket.dev/api/badge/npm/package/@houtini/google-knowledge-graph-mcp)](https://socket.dev/npm/package/@houtini/google-knowledge-graph-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue)](https://modelcontextprotocol.io)
 
