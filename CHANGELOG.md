@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- `detailedDescription` was silently dropped whenever more than one language was requested: the API then returns a list per language, and the server only read `.articleBody` off a single object
+
+### Added
+- `googleSearchUrl` on every entity: a Google results link (`?kgmid=<mid>`) that opens the entity's knowledge panel for manual checking
+- `detailedDescription` now keeps its source `url` and `license` (it is an object, or a list per language, instead of a bare string)
+- `imageSourceUrl` and `imageLicense` from the API's `image` object
+- `prefix` parameter on `search_knowledge_graph` (prefix matching on names and aliases), as documented for `entities:search`
+- Offline tests for the entity mapping (`npm test`)
+
 ## [1.0.8] - 2026-10-02
 
 ### Fixed

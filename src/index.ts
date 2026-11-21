@@ -7,6 +7,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 import { searchEntities, lookupEntities, SearchOptions } from './client.js';
+import { formatEntity } from './format.js';
 import { SERVER_VERSION } from './version.js';
 
 const searchArgsSchema = z.object({
@@ -14,6 +15,7 @@ const searchArgsSchema = z.object({
   languages: z.array(z.string()).optional(),
   types: z.array(z.string()).optional(),
   limit: z.number().int().min(1).max(500).optional(),
+  prefix: z.boolean().optional(),
 });
 
 const lookupArgsSchema = z.object({
@@ -45,7 +47,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     tools: [
       {
         name: 'search_knowledge_graph',
-        description: 'Search Google Knowledge Graph for entities by name or topic. Returns structured information about real-world entities like people, places, organizations, and concepts from Google\'s public knowledge base.',
+        description: 'Search Google Knowledge Graph for entities by name or topic. Returns structured information about real-world entities like people, places, organizations, and concepts from Google\'s public knowledge base. Each entity carries googleSearchUrl, a Google results link that opens its knowledge panel for checking by eye. With several languages, name, description and detailedDescription come back as one entry per language.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -68,6 +70,10 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
               minimum: 1,
               maximum: 500,
               description: 'Maximum results to return (1-500). Default: 20',
+            },
+            prefix: {
+              type: 'boolean',
+              description: 'Prefix matching on entity names and aliases: "Jung" also finds "Jungle" and "Jung-ho Kang". Default: false (whole-word match)',
             },
           },
           required: ['query'],
@@ -107,33 +113,20 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       if (!parsed.success) {
         throw invalidArgs(name, parsed.error);
       }
-      const { query, languages, types, limit } = parsed.data;
+      const { query, languages, types, limit, prefix } = parsed.data;
 
       const options: SearchOptions = {
         query,
         languages: languages || ['en'],
         types,
         limit: limit || 20,
+        prefix,
       };
 
       const entities = await searchEntities(options);
 
       const output = {
-        entities: entities.map(e => {
-          const rawMid = e['@id'] || '';
-          const mid = rawMid.replace(/^kg:/, '');
-          
-          return {
-            mid,
-            name: e.name || '',
-            type: Array.isArray(e['@type']) ? e['@type'] : [e['@type'] || 'Thing'],
-            description: e.description || undefined,
-            detailedDescription: e.detailedDescription?.articleBody || undefined,
-            image: e.image?.contentUrl || undefined,
-            url: e.url || undefined,
-            resultScore: e.resultScore || undefined,
-          };
-        }),
+        entities: entities.map(formatEntity),
         count: entities.length,
       };
 
@@ -157,21 +150,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       const entities = await lookupEntities(ids, languages || ['en']);
 
       const output = {
-        entities: entities.map(e => {
-          const rawMid = e['@id'] || '';
-          const mid = rawMid.replace(/^kg:/, '');
-          
-          return {
-            mid,
-            name: e.name || '',
-            type: Array.isArray(e['@type']) ? e['@type'] : [e['@type'] || 'Thing'],
-            description: e.description || undefined,
-            detailedDescription: e.detailedDescription?.articleBody || undefined,
-            image: e.image?.contentUrl || undefined,
-            url: e.url || undefined,
-            resultScore: e.resultScore || undefined,
-          };
-        }),
+        entities: entities.map(formatEntity),
         count: entities.length,
       };
 
