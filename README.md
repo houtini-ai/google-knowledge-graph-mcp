@@ -170,18 +170,29 @@ Example response structure:
   "entities": [
     {
       "mid": "/m/0dl567",
+      "googleSearchUrl": "https://www.google.com/search?kgmid=/m/0dl567",
       "name": "Taylor Swift",
       "type": ["Person", "Thing"],
       "description": "American singer-songwriter",
-      "detailedDescription": "Taylor Alison Swift is an American singer-songwriter...",
+      "detailedDescription": {
+        "articleBody": "Taylor Alison Swift is an American singer-songwriter...",
+        "url": "https://en.wikipedia.org/wiki/Taylor_Swift",
+        "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"
+      },
       "image": "https://...",
-      "url": "http://en.wikipedia.org/wiki/Taylor_Swift",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:...",
+      "imageLicense": "http://creativecommons.org/licenses/by-sa/2.0",
+      "url": "http://www.taylorswift.com/",
       "resultScore": 4258.07
     }
   ],
   "count": 1
 }
 ```
+
+- `googleSearchUrl` opens Google's results page for exactly this entity (`kgmid=`), so a hit can be checked against its knowledge panel. The API itself returns no such link.
+- `url` is the entity's official website, not a Wikipedia page. The Wikipedia source of the text is `detailedDescription.url`.
+- With more than one language (`"languages": ["de", "en"]`), `name`, `description` and `detailedDescription` become lists with one entry per language; each `detailedDescription` entry then carries `language`. Fields the API does not return for an entity are left out.
 
 ## Parameters
 
@@ -191,6 +202,7 @@ Example response structure:
 - **languages** (optional): Language codes array, e.g. `["en"]`
 - **types** (optional): Entity types to filter by, e.g. `["Person", "Organization"]`
 - **limit** (optional): Max results (default 20, max 500)
+- **prefix** (optional): Prefix matching on names and aliases, e.g. `"Jung"` also finds "Jungle" (default `false`)
 
 ### lookup_knowledge_graph_entities
 

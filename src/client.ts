@@ -12,6 +12,7 @@ export interface KnowledgeGraphEntity {
   image?: {
     contentUrl?: string;
     url?: string;
+    license?: string;
   };
   url?: string;
   resultScore?: number;

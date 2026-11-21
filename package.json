@@ -23,7 +23,8 @@
     "prepublishOnly": "npm run build",
     "prepack": "npm run build",
     "clean": "rm -rf dist",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "tsc && node --test \"test/*.test.mjs\""
   },
   "files": [
     "dist",
